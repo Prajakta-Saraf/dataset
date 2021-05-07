@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
-x = np.array([5, 15, 25, 35, 45, 55]).reshape((-1, 1))
-y = np.array([0, 10, 20, 30, 40, 50])
+x = np.array([1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21]).reshape((-1, 1))
+y = np.array([100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99])
 print(x)
 print(y)
 model = LinearRegression()
@@ -10,10 +10,9 @@ r_sq = model.score(x, y)
 print('coefficient of determination:', r_sq)
 print('intercept:', model.intercept_)
 print('slope:', model.coef_)
-x1=np.array([5,10,15,20,25]).reshape((-1,1))
+x1=np.array([22]).reshape((-1,1))
 y_pred = model.predict(x1)
 print('predicted response:', y_pred)
-
 
 
 
