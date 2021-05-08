@@ -1,0 +1,63 @@
+#final
+
+import pandas
+from sklearn import linear_model
+import numpy as np
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
+df = pandas.read_csv("../input/aplecsv/aapl.csv")
+X = df[['Open', 'High', 'Low', 'Volume']]
+y = df['Close']
+
+print(X)
+print(y)
+
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=34)
+
+print('training dataset-')
+print(X_train)
+
+print('testing dataset-')
+print(X_test)
+
+regr = linear_model.LinearRegression()
+regr.fit(X_train, y_train)
+r_sq = regr.score(X_test, y_test)
+
+print(' Training Score ')
+r_sq1 = regr.score(X_train, y_train)
+print(r_sq1)
+
+print(' Testing Score ')
+print(r_sq)
+
+
+predicted = regr.predict(X_test)
+
+print('Closing values are: ')
+print(predicted)
+
+
+
+
+
+
+
+#immature 
+
+import pandas
+from sklearn import linear_model
+
+df = pandas.read_csv("../input/aplecsv/aapl.csv")
+
+X = df[['Open', 'High', 'Low', 'Volume']]
+y = df['Close']
+
+regr = linear_model.LinearRegression()
+regr.fit(X, y)
+
+
+predicted = regr.predict([[160.05, 170.50, 155.8,123450]])
+
+print(predicted)

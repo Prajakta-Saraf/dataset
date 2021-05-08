@@ -1,0 +1,133 @@
+import numpy as np
+from sklearn.linear_model import LinearRegression
+x = np.array([1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21]).reshape((-1, 1))
+y = np.array([100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99])
+print(x)
+print(y)
+model = LinearRegression()
+model.fit(x, y)
+r_sq = model.score(x, y)
+print('coefficient of determination:', r_sq)
+print('intercept:', model.intercept_)
+print('slope:', model.coef_)
+x1=np.array([22]).reshape((-1,1))
+y_pred = model.predict(x1)
+print('predicted response:', y_pred)
+
+
+
+#without using any libraries with dataset (from scratch) 
+
+x=[]
+p=0
+q=0
+sum_x=0
+i=0 
+i1=0
+i2=0
+i3=0
+sum_y=0
+mean_x=0
+mean_y=0
+variance=0
+covariance=0
+slope=0
+y_pred=0
+c=0
+xi_x=[]
+yi_y=[]
+xi_x2=[]
+xi_x_yi_y=[]
+
+my_file_handle=open("../input/aplecsv/aapl.csv")
+m=my_file_handle.read(1)
+while m!='\n':
+    m=my_file_handle.read(1)
+for i in range(979):
+    for j in range(2):
+        n=my_file_handle.read(1)
+        while n!=',':
+            n=my_file_handle.read(1)
+    
+    x.append(my_file_handle.read(3))
+    n1=my_file_handle.read(1)
+    while n1!=',':
+        n1=my_file_handle.read(1)
+   
+    m1=my_file_handle.read(1)
+    while m1!='\n':
+        m1=my_file_handle.read(1)
+x = [float(p) for p in x]
+print(x)
+
+y=[]
+my_file_handle=open("../input/aplecsv/aapl.csv")
+m=my_file_handle.read(1)
+while m!='\n':
+    m=my_file_handle.read(1)
+for i in range(979):
+    for j in range(5):
+        n=my_file_handle.read(1)
+        while n!=',':
+            n=my_file_handle.read(1)
+    
+    y.append(my_file_handle.read(3))
+    n1=my_file_handle.read(1)
+    while n1!=',':
+        n1=my_file_handle.read(1)
+   
+    m1=my_file_handle.read(1)
+    while m1!='\n':
+        m1=my_file_handle.read(1)
+y = [float(q) for q in y]
+print(y)
+
+
+x_train=x[0:len(x)-5]
+y_train=y[0:len(y)-5]
+
+print("Training data: ")
+print("Values for independent: ")
+print(x_train)
+print("Values for dependent: ")
+print(y_train)
+print(len(x_train))
+for i in range(len(x_train)):
+    sum_x=sum_x+x_train[i]
+    sum_y=sum_y+y_train[i]
+    
+mean_x=sum_x/len(x_train)
+mean_y=sum_y/len(y_train)
+
+print("Sum of values of independent training data: "+str(sum_x)+", Sum of values of dependent training data: "+ str(sum_y)+", Mean of values of independent training data: "+ str(mean_x)+", Mean of values of dependent training data: "+str(mean_y))
+
+for i1 in range(len(x_train)):
+    xi_x.append(x_train[i1]-mean_x)
+    yi_y.append(y_train[i1]-mean_y)
+    
+print("Values of xi-x': "+str(xi_x))
+print("Values of yi-y': "+str(yi_y))
+
+for i2 in range(len(xi_x)):
+    xi_x2.append(xi_x[i2]*xi_x[i2])
+    xi_x_yi_y.append(xi_x[i2]*yi_y[i2])
+    
+print("Values of (xi-x')^2: "+str(xi_x2))
+print("Values of  (xi-x')*(yi-y'): "+str( xi_x_yi_y))
+
+for i3 in range(len(xi_x2)):
+    variance=variance+xi_x2[i3]
+    covariance=covariance+xi_x_yi_y[i3]
+    
+print("Covariance: "+str(covariance)+", Variance: "+str(variance))
+
+slope=covariance/variance
+
+c=mean_y-(slope*mean_x)
+
+print("Slope: "+str(slope)+", Intercept: "+str(c))
+
+val = int(input("Enter your value: "))
+y_pred=slope*val+c
+print("Value of the dependent variable is: "+str(y_pred))
+
