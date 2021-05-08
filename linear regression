@@ -16,8 +16,11 @@ print('predicted response:', y_pred)
 
 
 
-#without using any libraries 
+#without using any libraries with dataset (from scratch) 
 
+x=[]
+p=0
+q=0
 sum_x=0
 i=0 
 i1=0
@@ -36,18 +39,59 @@ yi_y=[]
 xi_x2=[]
 xi_x_yi_y=[]
 
-x = [1,2,3,5,6,7,8,9,10,12,13,14,15,16,18,19,21,22]
-y = [100,90,80,60,60,55,60,65,70,70,75,76,78,79,90,99,99,100]
+my_file_handle=open("../input/aplecsv/aapl.csv")
+m=my_file_handle.read(1)
+while m!='\n':
+    m=my_file_handle.read(1)
+for i in range(979):
+    for j in range(2):
+        n=my_file_handle.read(1)
+        while n!=',':
+            n=my_file_handle.read(1)
+    
+    x.append(my_file_handle.read(3))
+    n1=my_file_handle.read(1)
+    while n1!=',':
+        n1=my_file_handle.read(1)
+   
+    m1=my_file_handle.read(1)
+    while m1!='\n':
+        m1=my_file_handle.read(1)
+x = [float(p) for p in x]
+print(x)
 
-x_train=x[0:len(x)-1]
-y_train=y[0:len(y)-1]
+y=[]
+my_file_handle=open("../input/aplecsv/aapl.csv")
+m=my_file_handle.read(1)
+while m!='\n':
+    m=my_file_handle.read(1)
+for i in range(979):
+    for j in range(5):
+        n=my_file_handle.read(1)
+        while n!=',':
+            n=my_file_handle.read(1)
+    
+    y.append(my_file_handle.read(3))
+    n1=my_file_handle.read(1)
+    while n1!=',':
+        n1=my_file_handle.read(1)
+   
+    m1=my_file_handle.read(1)
+    while m1!='\n':
+        m1=my_file_handle.read(1)
+y = [float(q) for q in y]
+print(y)
+
+
+x_train=x[0:len(x)-5]
+y_train=y[0:len(y)-5]
 
 print("Training data: ")
 print("Values for independent: ")
 print(x_train)
 print("Values for dependent: ")
 print(y_train)
-
+print(len(x_train))
 for i in range(len(x_train)):
     sum_x=sum_x+x_train[i]
     sum_y=sum_y+y_train[i]
@@ -55,7 +99,7 @@ for i in range(len(x_train)):
 mean_x=sum_x/len(x_train)
 mean_y=sum_y/len(y_train)
 
-print("Sum of values of independent training data: "+str(sum_x)+", Sum of values of dependent training data: "+ str(sum_y)+"Mean of values of independent training data:"+ str(mean_x)+"Mean of values of dependent training data:"+str(mean_y))
+print("Sum of values of independent training data: "+str(sum_x)+", Sum of values of dependent training data: "+ str(sum_y)+", Mean of values of independent training data: "+ str(mean_x)+", Mean of values of dependent training data: "+str(mean_y))
 
 for i1 in range(len(x_train)):
     xi_x.append(x_train[i1]-mean_x)
